@@ -45,5 +45,12 @@ class JunittestdemoApplicationTests {
         stringCompletableFuture = uSerService.getUser("hardik");
         assertEquals(list, stringCompletableFuture.get());
     }
+    @Test
+    public void getUserNullData() throws ExecutionException, InterruptedException {
+        CompletableFuture<List<UserEntityDto>> stringCompletableFuture = new CompletableFuture<>();
+        List<UserEntityDto> list = new ArrayList<>();
 
+        stringCompletableFuture = uSerService.getUser("hardi");
+        assertEquals(list , stringCompletableFuture.get());
+    }
 }
