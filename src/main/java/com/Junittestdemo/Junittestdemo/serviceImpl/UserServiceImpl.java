@@ -7,6 +7,8 @@ import com.Junittestdemo.Junittestdemo.service.USerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -39,15 +41,20 @@ public class UserServiceImpl implements USerService {
     }
 
     @Override
-    public CompletableFuture<UserEntityDto> getUser(String name) {
-        UserEntityDto userEntityDto = new UserEntityDto();
+    public CompletableFuture<List<UserEntityDto>> getUser(String name) {
+        List<UserEntityDto> userEntityDto = new ArrayList<>();
         try {
-            Optional<UserEntity> userEntity = userRepository.getUser(name);
-            if (userEntity.isPresent()) {
-                userEntityDto.setName(userEntity.get().getName());
-                userEntityDto.setEmail(userEntity.get().getEmail());
-                userEntityDto.setAge(userEntity.get().getAge());
+            List<UserEntity> userEntity = userRepository.getUser(name);
+            if(!userEntity.isEmpty()){
+                for (UserEntity user : userEntity){
+                    UserEntityDto entityDto = new UserEntityDto();
+                    entityDto.setName(user.getName());
+                    entityDto.setEmail(user.getEmail());
+                    entityDto.setAge(user.getAge());
+                    userEntityDto.add(entityDto);
+                }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e);

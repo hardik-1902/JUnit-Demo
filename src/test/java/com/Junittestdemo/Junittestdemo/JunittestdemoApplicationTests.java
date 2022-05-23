@@ -1,6 +1,9 @@
 package com.Junittestdemo.Junittestdemo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -34,13 +37,13 @@ class JunittestdemoApplicationTests {
 
     @Test
     public void getUserData() throws ExecutionException, InterruptedException {
-        CompletableFuture<UserEntityDto> stringCompletableFuture = new CompletableFuture<>();
-        UserEntityDto userEntityDto = new UserEntityDto();
-        userEntityDto.setAge(22);
-        userEntityDto.setEmail("hardik@gmail.com");
-        userEntityDto.setName("hardik");
+        CompletableFuture<List<UserEntityDto>> stringCompletableFuture = new CompletableFuture<>();
+        List<UserEntityDto> list = new ArrayList<>();
+        list.add(new UserEntityDto("hardik",22,"hardik@gmail.com"));
+        list.add(new UserEntityDto("hardik",23,"hardik23@gmail.com"));
+        
         stringCompletableFuture = uSerService.getUser("hardik");
-        assertEquals(userEntityDto, stringCompletableFuture.get());
+        assertEquals(list, stringCompletableFuture.get());
     }
 
 }

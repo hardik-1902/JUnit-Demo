@@ -6,6 +6,7 @@ import com.Junittestdemo.Junittestdemo.service.USerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
@@ -21,7 +22,7 @@ public class UserController {
     }
 
     @GetMapping("/getUser")
-    public CompletableFuture<UserEntityDto> getUser(@RequestParam(value = "name") String name) {
+    public CompletableFuture<List<UserEntityDto>> getUser(@RequestParam(value = "name") String name) {
         return uSerService.getUser(name);
     }
 }
